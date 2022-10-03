@@ -8,20 +8,18 @@ type Data = {
 }
 
 export default async function handler( req: NextApiRequest,res: NextApiResponse<Data>) {
-  console.log("CONNECTING MONGO")
-  await connectMongo();
-  console.log("MONGO CONNECT")
 
-  console.log("creatin document")
+
+  // console.log("creating document")
   // interface UserObj {
   //   username: string;
   //   password: string;
   //   email: string;
   // }
 
-  const userTest = await User.create(req.body)
-  res.send(userTest)
-  console.log("created document")
+  // const userTest = await User.create(req.body)
+  // res.send(userTest)
+  // console.log("created document")
 
 }
 

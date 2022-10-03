@@ -2,6 +2,8 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import conectarDB from '../utils/connectDb'
+import User from '../models/models'
 
 const Home: NextPage = () => {
   return (
@@ -15,4 +17,31 @@ const Home: NextPage = () => {
   )
 }
 
+
 export default Home
+
+
+export async function getServerSideProps() {
+  interface UserModel {
+    username: string;
+    email: string;
+    password: string;
+}
+  try {
+    await conectarDB();
+
+    // const res: UserModel = await User.find({});
+
+    // const user = res.map((doc) => {
+    //   const user = doc.toObject();
+    //   user._id = `${user._id}`;
+    //   return user;
+    // });
+
+    // console.log(res)
+
+    // return { props: { user } };
+  } catch (error) {
+    console.log(error);
+  }
+}
