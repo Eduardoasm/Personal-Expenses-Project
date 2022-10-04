@@ -4,6 +4,8 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import conectarDB from '../utils/connectDb'
 import User from '../models/models'
+import { UserModel } from '../models/models'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 const Home: NextPage = () => {
   return (
@@ -21,16 +23,17 @@ const Home: NextPage = () => {
 export default Home
 
 
-export async function getServerSideProps() {
-  interface UserModel {
-    username: string;
-    email: string;
-    password: string;
-}
+export async function getServerSideProps(req: NextApiRequest,res: NextApiResponse) {
+
   try {
     await conectarDB();
+    
+    // const { params } = req
+    // const userM = await User.findOne({email: req.body.email})
 
+    // console.log(userM)
     // const res: UserModel = await User.find({});
+    // const res: typeOf User = await User.find({})
 
     // const user = res.map((doc) => {
     //   const user = doc.toObject();
@@ -39,7 +42,7 @@ export async function getServerSideProps() {
     // });
 
     // console.log(res)
-
+    return {props: {user : 123}}
     // return { props: { user } };
   } catch (error) {
     console.log(error);

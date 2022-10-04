@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { Schema, model, models } from 'mongoose'
 
-interface UserModel {
+export interface UserModel {
     username: string;
     email: string;
     password: string;
