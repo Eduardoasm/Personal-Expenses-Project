@@ -1,19 +1,19 @@
 import mongoose from 'mongoose'
-import { Schema, model, models } from 'mongoose'
+import { Schema, model, models, Document } from 'mongoose'
 import bcrypt from 'bcrypt'
 
-export interface UserModel {
+export interface UserModel{
     username: string;
     email: string;
     password: string;
+    online: boolean;
+    apodo: string;
 }
 
 const userSchema = new Schema<UserModel>(
     {
         username:{
             type: String,
-            require: true,
-            unique: true
         },
         email:{
             type: String,
@@ -23,6 +23,12 @@ const userSchema = new Schema<UserModel>(
         password:{
             type: String,
             require: true,
+        },
+        online:{
+            type: Boolean,
+        },
+        apodo:{
+            type: String,
         },
 
     }
@@ -45,6 +51,8 @@ userSchema.methods.comparePassword = async function(password: string) : Promise<
 console.log(models.User)
 
 
+// const User = models.User || model<UserModel>("User", userSchema)  (no funciona)
+
+
 const User = () => model<UserModel>("User", userSchema) 
-// const User = models.User || model<UserModel>("User", userSchema)
-export default (models.User || User()) as ReturnType<typeof User>
+export default (models.User || User()) as ReturnType<typeof User> //si funciona
