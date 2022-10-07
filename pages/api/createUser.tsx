@@ -1,15 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import connectMongo from "../.././utils/connectDb"
-import User from "../.././models/models"
-import UserModel from "../.././models/models"
-
-type Data = {
-  name: string
-}
+import connectMongo from "../../utils/connectDb"
+import UserModel from "../../models/models"
+import User from "../../models/models"
 
 
-
-export default async function createUser( req: NextApiRequest,res: NextApiResponse) {
+export default async function createUser( req: NextApiRequest,res: NextApiResponse){
 
     
     await connectMongo()
@@ -29,18 +24,6 @@ export default async function createUser( req: NextApiRequest,res: NextApiRespon
             return res.status(200).json({succes: true, user})
         } catch (error) {
             return res.status(400).json({succes: false, error: 'falla del servidor'})
-        }
-    }
-    if(method === 'GET'){
-        try {
-            const { email } = req.body
-            let user = await User.findOne({ email })
-            if(!user){
-                res.status(400).json({msg: "no hay email creado"})
-            }
-            res.status(200).json({succes: true, user})
-        } catch (error) {
-            
         }
     }
 }

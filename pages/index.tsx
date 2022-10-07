@@ -27,23 +27,8 @@ export async function getServerSideProps(req: NextApiRequest,res: NextApiRespons
 
   try {
     await conectarDB();
-    
-    // const { params } = req
-    // const userM = await User.findOne({email: req.body.email})
+ 
 
-    // console.log(userM)
-    // const res: UserModel = await User.find({});
-    // const res: typeOf User = await User.find({})
-
-    // const user = res.map((doc) => {
-    //   const user = doc.toObject();
-    //   user._id = `${user._id}`;
-    //   return user;
-    // });
-
-    // console.log(res)
-    return {props: {user : 123}}
-    // return { props: { user } };
   } catch (error) {
     console.log(error);
   }

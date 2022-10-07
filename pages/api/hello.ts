@@ -3,23 +3,21 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import connectMongo from "../.././utils/connectDb"
 import User from "../.././models/models"
 
-type Data = {
-  name: string
-}
-
-export default async function handler( req: NextApiRequest,res: NextApiResponse<Data>) {
 
 
-  // console.log("creating document")
-  // interface UserObj {
-  //   username: string;
-  //   password: string;
-  //   email: string;
-  // }
+export default async function handler( req: NextApiRequest, res: NextApiResponse) {
 
-  // const userTest = await User.create(req.body)
-  // res.send(userTest)
-  // console.log("created document")
+  await connectMongo()
+
+    const { method } = req
+    
+    if(method === 'POST'){
+      try {
+        
+      } catch (error) {
+        
+      }
+    }
 
 }
 
