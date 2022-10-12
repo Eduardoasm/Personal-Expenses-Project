@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import connectMongo from "../../utils/connectDb"
-import UserModel from "../../models/models"
-import User from "../../models/models"
+import connectMongo from "../../../utils/connectDb"
+import UserModel from "../../../models/models"
+import User from "../../../models/models"
 
 
 export default async function createUser( req: NextApiRequest,res: NextApiResponse){
