@@ -1,8 +1,80 @@
-.container {
-  padding: 0 2rem;
+.main{
+  display: flex;
+  background-color: #266868;
+  width: 100vw;
+  height: 100vh
 }
 
-.main {
+/* .container {
+  margin-top: -22px;
+  padding: 0 2rem;
+  min-width: 1000px;
+  min-height: 1000px;
+  background-color: red
+} */
+
+.form{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content:center;
+  /* background-color: red; */
+  width: 800px;
+}
+
+.form1{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content:center;
+}
+
+.inputForm{
+  color: #000;
+  padding: 14px 16px;
+  border-radius: 6px;
+  width: 350px;
+  font-size: 20px
+
+}
+
+.labelsStyles {
+  padding-top: 40px;
+  padding-bottom: 6px;
+  width: 100%;
+  max-width: 470px;
+  font-size: 20px
+}
+
+.containerForm{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 130px;
+  margin-left: 350px;
+  width: 600px;
+  height: 600px;
+  background-color: white;
+  border-radius: 6px
+}
+
+.button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  width: 150px;
+  /* border: none; */
+  border-radius: 6px; 
+  padding: 4px;
+  padding-bottom: 6px;
+  height: 40px;
+  font-size: 20px; 
+  /* transition: 0.2s; */
+  /* background-color: #266868; */
+}
+
+/* .main {
   min-height: 100vh;
   padding: 4rem 0;
   flex: 1;
@@ -126,4 +198,4 @@
   .logo img {
     filter: invert(1);
   }
-}
+} */

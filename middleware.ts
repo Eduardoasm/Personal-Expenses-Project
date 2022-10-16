@@ -1,4 +1,4 @@
-import { url } from "inspector";
+// import { url } from "inspector";
 import { jwtVerify } from "jose"; 
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse, NextRequest} from "next/server";
@@ -6,24 +6,26 @@ import { NextResponse, NextRequest} from "next/server";
 
 
 
-export async function middleware(req: NextRequest, res: NextResponse)  {
+export async function middleware(req: NextRequest )  {
     
     const jwt = req.cookies.get("myTokenName")
+
+    // console.log("soy jwt", jwt)
 
         if(jwt === undefined){
             return NextResponse.redirect(new URL("/", req.url))
         }
-
-        try {
-            const { payload } = await jwtVerify(jwt, new TextEncoder().encode("myTokenName"))
+        try { 
+            const { payload } = await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET))
             
-            console.log(payload)
+            // console.log("soy apayload", payload)
             return NextResponse.next()
           
         } catch (error) {
-            console.log(error)
+            console.log("soy error", error)
             return NextResponse.redirect(new URL("/", req.url))
         }
+
 
 }
 

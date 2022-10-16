@@ -1,17 +1,27 @@
 import React from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { FormEvent, ChangeEventHandler } from 'react'
 
 
 
 export default function Dashboard(){
+
+    interface numberUser{
+        add: number
+    }
     
+    // const [add, setAdd] = useState<number>(0)
+    const [add, setAdd] = useState<numberUser>({
+        add: 0
+    })
     const router = useRouter()
     
-    const buttonClick = async () => {
-        const response = await axios.get("/api/user")
-        console.log(response)
-    }
+    // const buttonClick = async () => {
+    //     const response = await axios.get("/api/user")
+    //     console.log(response)
+    // }
     
     const logoutUser = async () => {
         try {
@@ -24,11 +34,40 @@ export default function Dashboard(){
         }
     }
 
+    const handleChange: ChangeEventHandler<HTMLInputElement>  = (e) => {
+    e.preventDefault();
+    // setAdd(parseInt(e.currentTarget.value))
+    setAdd({
+        ...add,
+        [e.currentTarget.name]: e.currentTarget.value
+    })
+    // console.log(add)
+    }
+
+    const addMoney = async (e:FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            console.log("soy add", add)
+            const response = await axios.post("/api/walletUser/sumBalance", add)
+            console.log(response)
+        } catch (error) {
+            console.log("toy mandando error", error)
+        }
+    }
+
     return(
         <div>
-            <button onClick={() => buttonClick()}>
-                boton
+            <form onSubmit={(e) => addMoney(e)}>
+            <input
+            type="number"
+            name='add'
+            value={add.add}
+            onChange={handleChange}
+            />
+            <button>
+                agregar
             </button>
+            </form>
             <button onClick={() => logoutUser()}>
                 logout
             </button>

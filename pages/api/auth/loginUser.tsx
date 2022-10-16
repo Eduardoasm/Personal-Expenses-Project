@@ -19,10 +19,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await connectMongo()
 
     const { method } = req
+    const { email, password } = req.body
 
     if(method === 'POST'){
         try {
-            const { email, password } = req.body
             let user = await User.findOne({ email })
             if(!user){
                 res.status(400).json({msg: "no hay email creado"})
@@ -40,12 +40,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 })
 
                 res.setHeader('Set-Cookie', serialized)
-                return res.status(200).json({succes: true, token: refreshToken})
+                res.status(200).json({succes: true, token: refreshToken})
+       
             }
             res.status(400).json({succes: false, error: 'la contraseña no coincide'})
-      
+            
         } catch (error) {
-                console.log(error)
+                console.log("wenas soy error de try", error)
         }
     }
 }
