@@ -62,7 +62,7 @@ export default function Register(){
             </h1>
             <input
             name='email'
-            type='email'
+            type='email' 
             value={inputChange.email}
             onChange={handleChange}
             />
