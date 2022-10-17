@@ -1,94 +1,86 @@
-import React from 'react'
-import axios from 'axios'
-import type { FormEvent, ChangeEventHandler } from 'react'
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import styles from "../styles/register.module.css"
+import React from "react";
+import axios from "axios";
+import type { FormEvent, ChangeEventHandler } from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import styles from "../styles/register.module.css";
 
+export default function Register() {
+  const router = useRouter();
 
-export default function Register(){
+  interface CreateUser {
+    username: string;
+    email: string;
+    password: string;
+    repeatPassword: string;
+  }
 
-    const router = useRouter()
+  const [inputChange, setInputChange] = useState<CreateUser>({
+    username: "",
+    email: "",
+    password: "",
+    repeatPassword: "",
+  });
 
-    interface CreateUser{
-        username: string,
-        email: string,
-        password: string,
-        repeatPassword: string,
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    e.preventDefault();
+    setInputChange({
+      ...inputChange,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
+    console.log(inputChange);
+  };
+
+  const register = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const response = await axios.post("/api/auth/createUser", inputChange);
+    console.log(response);
+    if (response.status === 200) {
+      return router.push("/");
     }
+  };
 
-    const [inputChange, setInputChange] = useState<CreateUser>({
-        username: "",
-        email: "",
-        password: "",
-        repeatPassword: ""
-    })
-
-    const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-        e.preventDefault();
-        setInputChange({
-            ...inputChange,
-            [e.currentTarget.name]: e.currentTarget.value
-        })
-        console.log(inputChange)
-    }
-
-    const register = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-       const response = await axios.post("/api/auth/createUser", inputChange)
-       console.log(response)
-        if(response.status === 200){
-            return router.push("/")
-        }
-    }
-
-
-    return(
-        <div className={styles.main}>
-            <div className={styles.form}>
-            <form
-            onSubmit={(e) => register(e)}>
-            <h1>
-                username
-            </h1>
+  return (
+    <div className={styles.main}>
+        <div className={styles.register}>
+          <form 
+          className={styles.form}
+          onSubmit={(e) => register(e)}>
+            <label>username</label>
             <input
-            name='username'
-            type='username'
-            value={inputChange.username}
-            onChange={handleChange}
+            className={styles.input}
+              name="username"
+              type="username"
+              value={inputChange.username}
+              onChange={handleChange}
             />
-            <h1>
-                email
-            </h1>
+            <label>email</label>
             <input
-            name='email'
-            type='email' 
-            value={inputChange.email}
-            onChange={handleChange}
+            className={styles.input}
+              name="email"
+              type="email"
+              value={inputChange.email}
+              onChange={handleChange}
             />
-            <h1>
-                password
-            </h1>
+            <label>password</label>
             <input
-            name='password'
-            type='password'
-            value={inputChange.password}
-            onChange={handleChange}
+            className={styles.input}
+              name="password"
+              type="password"
+              value={inputChange.password}
+              onChange={handleChange}
             />
-            <h1>
-                repeat password
-            </h1>
+            <label>repeat password</label>
             <input
-            name='repeatPassword'
-            type='password'
-            value={inputChange.repeatPassword}
-            onChange={handleChange}
+              className={styles.input}
+              name="repeatPassword"
+              type="password"
+              value={inputChange.repeatPassword}
+              onChange={handleChange}
             />
-            <button>
-                register
-            </button>
-            </form>
-            </div>
+            <button>register</button>
+          </form>
         </div>
-    )
+    </div>
+  );
 }
