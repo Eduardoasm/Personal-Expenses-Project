@@ -104,8 +104,10 @@ const Home: NextPage = () => {
           login
         </button>
       </form>
-        <h1>Dont have account?</h1>
-        <button onClick={(e) => onRegister(e)}>
+        <span className={styles.spanCreate}>Dont have account?</span>
+        <button 
+        className={styles.button1}
+        onClick={(e) => onRegister(e)}>
           Register
         </button>
         </div>

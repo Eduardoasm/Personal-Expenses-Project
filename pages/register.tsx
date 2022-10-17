@@ -3,6 +3,7 @@ import axios from 'axios'
 import type { FormEvent, ChangeEventHandler } from 'react'
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import styles from "../styles/register.module.css"
 
 
 export default function Register(){
@@ -43,7 +44,8 @@ export default function Register(){
 
 
     return(
-        <div>
+        <div className={styles.main}>
+            <div className={styles.form}>
             <form
             onSubmit={(e) => register(e)}>
             <h1>
@@ -86,6 +88,7 @@ export default function Register(){
                 register
             </button>
             </form>
+            </div>
         </div>
     )
 }

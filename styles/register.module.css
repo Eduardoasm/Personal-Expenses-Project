@@ -1,0 +1,17 @@
+.main{
+    display: flex;
+    background-color: #266868;
+    width: 100vw;
+    height: 100vh
+  }
+
+.divForm{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    /* background: black; */
+    width: 100vw;
+    height: 100vh;
+}
+
