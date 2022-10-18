@@ -23,6 +23,7 @@ export default async function createUser( req: NextApiRequest,res: NextApiRespon
             await user.save()
             return res.status(200).json({succes: true, user})
         } catch (error) {
+            console.log(error)
             return res.status(400).json({succes: false, error: 'falla del servidor'})
         }
     }

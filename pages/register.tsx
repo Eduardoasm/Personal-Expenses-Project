@@ -4,10 +4,13 @@ import type { FormEvent, ChangeEventHandler } from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import styles from "../styles/register.module.css";
+import Swal from 'sweetalert2';
+
+
 
 export default function Register() {
   const router = useRouter();
-
+  
   interface CreateUser {
     username: string;
     email: string;
@@ -29,14 +32,27 @@ export default function Register() {
       [e.currentTarget.name]: e.currentTarget.value,
     });
     console.log(inputChange);
+
   };
 
   const register = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await axios.post("/api/auth/createUser", inputChange);
-    console.log(response);
-    if (response.status === 200) {
-      return router.push("/");
+    try {
+      const response = await axios.post("/api/auth/createUser", inputChange);
+      console.log(response);
+      if (response.status === 200) {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Your Account have been created',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        return router.push("/");
+      }
+
+    } catch (error) {
+      console.log(error)
     }
   };
 
@@ -56,6 +72,7 @@ export default function Register() {
             Username
             </label>
             <input
+            // required= {true}
             placeholder="Username"
             className={styles.input}
               name="username"
@@ -67,6 +84,7 @@ export default function Register() {
             Email
             </label>
             <input
+            required= {true}
             placeholder="Email"
             className={styles.input}
               name="email"
@@ -78,6 +96,7 @@ export default function Register() {
             Password
             </label>
             <input
+            required= {true}
             placeholder="Password"
             className={styles.input}
               name="password"
@@ -89,6 +108,7 @@ export default function Register() {
             Repeat Password
             </label>
             <input
+            required= {true}
             placeholder="Password"
               className={styles.input}
               name="repeatPassword"
