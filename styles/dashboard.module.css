@@ -12,7 +12,7 @@
     bottom: 20px;
     width: 300px;
     border-radius: 10px;
-    background-color: blue;
+    /* background-color: blue; */
     box-sizing: initial;
     border-left: 5px solid #4d5bf9;
     background: #4d5bf9;
@@ -27,10 +27,41 @@
     padding-left: 0px;
 }
 
-.sidebar li{
+.sidebar ul li{
+    display:flex;
     position: relative;
     list-style: none;
     margin: 20px;
     font-size: 20px;
     width: 100%;
+    flex-direction: row;
+    /* background:black */
+    cursor: pointer;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    
+}
+
+.sidebar ul li p{
+    position: relative;
+    display: block;
+    width: 15%;
+    display: flex;
+    color: #fff;
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.icon{
+    display: block;
+    top: 7px;
+    left: 10px
+}
+
+.sidebar ul li:hover{
+    background-color: #fff ;
+}
+
+.sidebar ul li:hover p {
+    color: black
 }
