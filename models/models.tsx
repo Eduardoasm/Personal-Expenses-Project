@@ -17,6 +17,7 @@ const userSchema = new Schema<UserModel>(
     {
         username:{
             type: String,
+            required: true,
             index: false
         },
         email:{

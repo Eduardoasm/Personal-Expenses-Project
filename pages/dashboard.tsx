@@ -3,7 +3,9 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { FormEvent, ChangeEventHandler } from 'react'
-
+import styles from "../styles/dashboard.module.css"
+import { BsPiggyBank, BsBank2 } from 'react-icons/bs'
+import {  GiPayMoney } from 'react-icons/gi'
 
 
 export default function Dashboard(){
@@ -56,7 +58,24 @@ export default function Dashboard(){
     }
 
     return(
-        <div>
+        <div className={styles.main}>
+            <div className={styles.sidebar}>
+            <ul className={styles.ul}>
+                <li>
+
+            <BsPiggyBank/>
+            <p>
+            Deposit  
+            </p>
+    
+                </li>
+                <li>
+            <GiPayMoney/>
+                Withdraw
+                </li>
+            </ul>
+            </div>
+            <div>
             <form onSubmit={(e) => addMoney(e)}>
             <input
             type="number"
@@ -71,6 +90,7 @@ export default function Dashboard(){
             <button onClick={() => logoutUser()}>
                 logout
             </button>
+            </div>
         </div>
     )
 }
