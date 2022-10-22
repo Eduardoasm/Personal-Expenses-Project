@@ -82,8 +82,9 @@ const Home: NextPage = () => {
           showCancelButton: false,
           focusConfirm: false,
           confirmButtonText:
-            'Create account here',
-          confirmButtonAriaLabel: router.push("/register"),
+            'Create account here' +
+            router.push("/register"),
+          confirmButtonAriaLabel: 'Thumbs up, great!',
           cancelButtonText:
             '<i class="fa fa-thumbs-down"></i>',
             cancelButtonAriaLabel: 'Thumbs down'
