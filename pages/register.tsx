@@ -39,7 +39,7 @@ export default function Register() {
     e.preventDefault();
     try {
       const response = await axios.post("/api/auth/createUser", inputChange);
-      console.log(response);
+      console.log("soy response", response);
       if (response.status === 200) {
         Swal.fire({
           position: 'top-end',

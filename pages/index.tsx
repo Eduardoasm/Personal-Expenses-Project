@@ -10,12 +10,16 @@ import { useState } from "react"
 import type { FormEvent, ChangeEventHandler } from "react"
 import axios from 'axios'
 import { useRouter } from 'next/router'
-
+import  Swal from 'sweetalert2'
 
 
 const Home: NextPage = () => {
 
   const router = useRouter()
+
+  interface error{
+    response: number
+  }
   interface User{
     email: string;
     password: string
@@ -43,19 +47,52 @@ const Home: NextPage = () => {
   //   console.log(error)
   // }
   try {
-    const res = await axios.post("/api/auth/loginUser", inputChange)
-    console.log(res)
-      if(res.status === 200){
-        return router.push("/dashboard")
+    const response = await axios.post("/api/auth/loginUser", inputChange)
+    console.log("soy response", response.status)
+    if(response.status === 200){
+      // return router.push("/dashboard")
       }
       
-      if(res.status === 400){
-        return "insert email"
+      if(response.status === 403){
+        return Swal.fire({
+          title: '<strong>No email created</strong>',
+          icon: 'info',
+          html:
+            'You can create <b>account</b>, ',
+          showCloseButton: true,
+          showCancelButton: false,
+          focusConfirm: false,
+          confirmButtonText:
+            'Create account here' +
+            router.push("/register"),
+          confirmButtonAriaLabel: 'Thumbs up, great!',
+          cancelButtonText:
+            '<i class="fa fa-thumbs-down"></i>',
+            cancelButtonAriaLabel: 'Thumbs down'
+          })
       }
     } catch (error) {
-      console.log(error)
+      if(error){
+          Swal.fire({
+          title: '<strong>No email created</strong>',
+          icon: 'info',
+          html:
+            'You can create <b>account</b>, ',
+          showCloseButton: true,
+          showCancelButton: false,
+          focusConfirm: false,
+          confirmButtonText:
+            'Create account here',
+          confirmButtonAriaLabel: router.push("/register"),
+          cancelButtonText:
+            '<i class="fa fa-thumbs-down"></i>',
+            cancelButtonAriaLabel: 'Thumbs down'
+          })
+        }
+        console.log("soy error", error)
+      }
     }
-  }
+  
 
   const onRegister = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault;

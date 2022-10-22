@@ -1,7 +1,11 @@
 import mongoose from 'mongoose'
-import { Schema, model, models, Document } from 'mongoose'
+import { Schema, model, models, Document, Types, Model } from 'mongoose'
 import bcrypt from 'bcrypt'
 
+export interface userExpenses{
+    value: number;
+    date: Date;
+}
 export interface UserModel extends Document{
     username: string;
     email: string;
@@ -9,9 +13,23 @@ export interface UserModel extends Document{
     online: boolean;
     balance: number;
     amountSubtract: number;
-    amountToAdd: number
+    amountToAdd: number;
+    arrayDeposit: Types.Array<userExpenses>;
+    arrayWithdraw: Types.Array<userExpenses>;
     comparePassword: (password: string) => Promise<Boolean>
 }
+
+const userExpensesSchema =  new Schema<userExpenses>(
+    {
+        value:{
+            type: Number,
+            default: 0
+        },
+        date:{
+            type: Date,
+            // default: Date.now()
+        },
+})
 
 const userSchema = new Schema<UserModel>(
     {
@@ -42,6 +60,17 @@ const userSchema = new Schema<UserModel>(
         amountToAdd:{
             type: Number,
         },
+        arrayDeposit:{
+            type: [userExpensesSchema],
+            default: [{value: 0, date: Date.now()}]
+        },
+        arrayWithdraw:{
+            type: [userExpensesSchema],
+            default: [{value: 0, date: Date.now()}]
+        }
+        // arrayDeposit:[Schema.Types.Mixed]
+        // ,
+        // arrayWithdraw:[Schema.Types.Mixed],
     }
 )
 

@@ -7,13 +7,29 @@ import styles from "../styles/dashboard.module.css";
 import { BsPiggyBank, BsBank2 } from "react-icons/bs";
 import { GiPayMoney } from "react-icons/gi";
 import { BiLogOut } from 'react-icons/bi'
+import { useEffect } from "react"
+import { UserModel } from "../models/models";
+
 
 export default function Dashboard() {
   interface numberUser {
     add: number;
   }
 
+  interface userModel{
+    username: string,
+    email: string,
+    balance: number
+  }
+
+
   // const [add, setAdd] = useState<number>(0)
+  const [user, setUser] = useState<userModel>({
+    username: "",
+    email: "" ,
+    balance: 0
+  })
+
   const [add, setAdd] = useState<numberUser>({
     add: 0,
   });
@@ -56,6 +72,21 @@ export default function Dashboard() {
     }
   };
 
+
+
+ useEffect(()=> {
+    const userInfo = async () => {
+      const result = await axios.get("/api/user/infoUser")
+      setUser(result.data)
+      // console.log(result.data)
+    }
+    userInfo()
+    console.log(user)
+    // console.log(user)
+  },[])
+
+
+  
   return (
     <div className={styles.main}>
       <div className={styles.sidebar}>
@@ -88,6 +119,17 @@ export default function Dashboard() {
         </ul>
       </div>
       <div>
+        <div className={styles.balance}>
+          <h2>
+            {user.balance}
+          </h2>
+          {/* <h2>
+            {user && user.map(userBalance => (
+              <div key={userBalance.id}>
+                <h1>{userBalance.balance}</h1>
+              </div>
+            ))}
+          </h2> */}
         <form onSubmit={(e) => addMoney(e)}>
           <input
             type="number"
@@ -97,6 +139,7 @@ export default function Dashboard() {
           />
           <button>agregar</button>
         </form>
+        </div>
       </div>
     </div>
   );

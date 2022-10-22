@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             let user = await User.findOne({ email })
             if(!user){
-                res.status(400).json({msg: "no hay email creado"})
+                return res.status(403).json({msg: "no hay email creado"})
             }
             const logUser = await user.comparePassword(password)
             if(logUser){
@@ -43,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 res.status(200).json({succes: true, token: refreshToken})
        
             }
-            res.status(400).json({succes: false, error: 'la contraseña no coincide'})
+            return res.status(400).json({succes: false, error: 'la contraseña no coincide'})
             
         } catch (error) {
                 console.log("wenas soy error de try", error)

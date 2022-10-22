@@ -65,3 +65,15 @@
 .sidebar ul li:hover p {
     color: black
 }
+
+.balance{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 500px;
+    height: 200px;
+    margin-left: 500px;
+    margin-top: 100px;
+    /* background: blue; */
+}
